@@ -1,15 +1,12 @@
 <RCC>
   <qresource prefix="icon">
-    <file>icon/tasks_list_done_do_icon_228964.ico</file>
     <file>img/cabecera.png</file>
     <file>img/cabecera2.png</file>
     <file>icon/arrow-208-32.ico</file>
     <file>img/intento1.jpg</file>
     <file>img/intento2.jpg</file>
     <file>img/upt.jpg</file>
-    <file>img/background.jpg</file>
     <file>img/unnamed.png</file>
-    <file>img/harvard.jpg</file>
     <file>icon/logo2.png</file>
     <file>icon/cabecera_upt.png</file>
     <file>icon/cabecera_upt.png</file>
@@ -23,7 +20,6 @@
     <file>icon/group-48.ico</file>
     <file>icon/home-4-32.ico</file>
     <file>icon/home-4-48.ico</file>
-    <file>icon/Logo.png</file>
     <file>icon/menu-4-32.ico</file>
     <file>icon/product-32.ico</file>
     <file>icon/product-48.ico</file>

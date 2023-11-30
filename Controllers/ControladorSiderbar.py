@@ -1,6 +1,11 @@
 from .ControladorMostrar_Mensaje import ControladorMostrar_Mensaje
+from .ControladorArea_Cargo import ControladorArea_Cargo
+from .ControladorEmpleados import ControladorEmpleados
+from .ControladorRegistro import ControladorRegistro
 from PyQt5.QtWidgets import QPushButton
 from PyQt5 import QtWidgets
+from datetime import datetime
+from PyQt5 import QtWidgets, QtCore
 
 class ControladorSiderbar:
     
@@ -10,6 +15,9 @@ class ControladorSiderbar:
         self.modelo = modelo
         
         self.mensaje = ControladorMostrar_Mensaje()
+        self.area_cargo = ControladorArea_Cargo(vista, modelo)
+        self.empleados = ControladorEmpleados(vista, modelo)
+        self.registro =  ControladorRegistro(vista, modelo)
         
         self.vista.entrar_ui.icon_only_widget.hide()
         #Muestra la primera página (índice 0) en el widget apilado
@@ -33,9 +41,48 @@ class ControladorSiderbar:
         self.vista.entrar_ui.customers_btn_1.toggled.connect(self.on_customers_btn_1_toggled)
         self.vista.entrar_ui.customers_btn_2.toggled.connect(self.on_customers_btn_2_toggled)
         
+        self.vista.entrar_ui.orders_btn_1.clicked.connect(self.registro.mostrarAsistencia)
+        self.vista.entrar_ui.orders_btn_2.clicked.connect(self.registro.mostrarAsistencia)
         
         
+        self.vista.entrar_ui.btn_buscar.clicked.connect(self.registro.buscarporfecha)
+        self.vista.entrar_ui.btn_exportar.clicked.connect(self.registro.generar_reporte_asistencia)
         
+        #Botones de area y cargo laboral
+        self.vista.entrar_ui.btn_guardar1.clicked.connect(self.area_cargo.RegistrarArea)
+        self.vista.entrar_ui.btn_guardar2.clicked.connect(self.area_cargo.RegistrarCargo)
+        self.vista.entrar_ui.btn_modificar1.clicked.connect(self.area_cargo.ModificarArea)
+        self.vista.entrar_ui.btn_modificar2.clicked.connect(self.area_cargo.ModificarCargo)
+        self.vista.entrar_ui.btn_eliminar1.clicked.connect(self.area_cargo.EliminarArea)
+        self.vista.entrar_ui.btn_eliminar2.clicked.connect(self.area_cargo.EliminarCargo)
+        self.vista.entrar_ui.btn_exportar_1.clicked.connect(self.area_cargo.generar_reporte_area)
+        self.vista.entrar_ui.btn_exportar_2.clicked.connect(self.area_cargo.generar_reporte_cargo)
+        self.vista.entrar_ui.btn_buscar_1.clicked.connect(self.area_cargo.SeleccionarArea)
+        self.vista.entrar_ui.btn_buscar_2.clicked.connect(self.area_cargo.SeleccionarCargo)
+
+        #Botones de Empleados
+        self.vista.entrar_ui.btn_registrar.clicked.connect(self.empleados.RegistrarEmpleado)
+        self.vista.entrar_ui.btn_selec.clicked.connect(self.empleados.SeleccionarEmpleados)
+        self.vista.entrar_ui.btn_modificar_3.clicked.connect(self.empleados.ModificarEmpleado)
+        self.vista.entrar_ui.btn_eliminar_3.clicked.connect(self.empleados.EliminarEmpleado)
+        self.vista.entrar_ui.btn_buscar_3.clicked.connect(self.empleados.buscarEmpleado)
+        self.vista.entrar_ui.btn_exportar_3.clicked.connect(self.empleados.generar_reporte_empleados)
+        self.vista.entrar_ui.btn_buscar_4.clicked.connect(self.empleados.buscarEmpleadoporfecha)
+        self.vista.entrar_ui.btn_exportar_4.clicked.connect(self.empleados.generar_reporte_empleadosporfecha)
+        self.vista.entrar_ui.btn_ayuda_1.clicked.connect(self.ayuda)
+        self.vista.entrar_ui.btn_ayuda_2.clicked.connect(self.ayuda)
+        
+        self.vista.entrar_ui.customers_btn_1.clicked.connect(lambda: (self.empleados.MostrarEmpleados(), self.empleados.mostrarComboBox_3(), self.empleados.mostrarComboBox_2()))
+        self.vista.entrar_ui.customers_btn_2.clicked.connect(lambda: (self.empleados.MostrarEmpleados(), self.empleados.mostrarComboBox_3(), self.empleados.mostrarComboBox_2()))
+        self.vista.entrar_ui.products_btn_1.clicked.connect(lambda: (self.area_cargo.mostrarAreas(), self.area_cargo.mostrarCargos()))
+        self.vista.entrar_ui.products_btn_2.clicked.connect(lambda: (self.area_cargo.mostrarAreas(), self.area_cargo.mostrarCargos()))
+        
+        current_date = datetime.now()
+        qdate = QtCore.QDate(current_date.year, current_date.month, current_date.day)
+        self.vista.entrar_ui.dateEdit.setDate(qdate)
+        self.vista.entrar_ui.dateEdit_2.setDate(qdate)
+        self.vista.entrar_ui.dateEdit_3.setDate(qdate)
+        self.vista.entrar_ui.dateEdit_4.setDate(qdate)
 
     # Define las funciones que se llamarán cuando se haga clic en los botones o se cambie el estado de los botones
 
@@ -90,120 +137,16 @@ class ControladorSiderbar:
     def on_customers_btn_2_toggled(self):
         self.vista.entrar_ui.stackedWidget.setCurrentIndex(4)
 
+    def ayuda(self):
+        self.mensaje.mostrar_mensaje("Ayuda","""Primeros pasos.
+Lo primero que hay que hacer al iniciar el sistema es ir al apartado de Áreas y Cargos de trabajo donde se comenzara a registrar las distintas áreas y cargos que tendrán los empleados. En este apartado podremos registrar, modificar, eliminar, seleccionar y exportar. Si quieres seleccionar algún dato de la tabla, ingresaras el código de la fila el cual vayas a seleccionar y presionas el botón seleccionar. Para poder modificar o eliminar se tiene que colocar el código de la fila del dato que queremos modificar o eliminar de la tabla. Si presionas el botón de exportar, podrás guardar en un pdf o xlsx el registro tanto de la tabla áreas de trabajo como la tabla cargo de trabajo. 
 
-    def RegistrarEmpleado(self):
-        
-        Nombre =self.vista.entrar_ui.lineEdit.text()
-        Apellido = self.vista.entrar_ui.lineEdit_2.text()
-        Edad = self.vista.entrar_ui.lineEdit_3.text()
-        Telefono= self.vista.entrar_ui.lineEdit_4.text()
-        sexo = str(self.vista.entrar_ui.comboBox.currentText())
-        Cedula = self.vista.entrar_ui.lineEdit_5.text() 
-        Cargo = str(self.vista.entrar_ui.comboBox_2.currentText())
-        Area = str(self.vista.entrar_ui.comboBox_3.currentText())
-        Correo = self.vista.entrar_ui.lineEdit_11.text()
-        
-        # Se compara que los labels contengan datos,...
-        # de lo contrario mostrará un mensaje notificando al usuario
-        if len(Nombre)==0 or len(Apellido)==0 or len(Edad)==0 or len(Telefono)==0 or len(Cedula)==0:
-            self.mensaje.mostrar_mensaje("Error", "Por favor Ingrese todos los datos")
-        #Se comprueba que teléfono contenga 11 dígitos
-        elif len (str(Telefono)) !=11:
-            self.mensaje.mostrar_mensaje("Error","El numero de telefono debe contener 11 digitos")
-        #Se comprueba que edad tenga 2 dígitos
-        elif len (str(Edad)) !=2:
-            self.mensaje.mostrar_mensaje("Error","La edad debe contener 2 digitos")
-        elif len (str(Edad)) ==2: 
-            resultado= self.modelo.ModelTrabajadores.verificar_cedula(Cedula)
-            if resultado:
-                self.mensaje.mostrar_mensaje("Error", "El trabajador ya se encuentra registrado")
-            # Se comprueba que la cédula contega 8 dígitos
-            elif len (str(Cedula)) ==8:
-                self.modelo.ModelTrabajadores.registrar_trabajador(Nombre, Apellido, Edad, Telefono, sexo, Cedula, Cargo, Area, Correo)
-                self.mensaje.mostrar_mensaje("Éxito!", "Se ha registrado exitosamente! Con su cedula va a marcar entrada y salida")
-                # Cuando se realiza el registro, se eliminan los datos de los labels
-                self.vista.entrar_ui.lineEdit.setText("")
-                self.vista.entrar_ui.lineEdit_2.setText("")
-                self.vista.entrar_ui.lineEdit_3.setText("")
-                self.vista.entrar_ui.lineEdit_4.setText("")
-                self.vista.entrar_ui.lineEdit_5.setText("")
-                self.vista.entrar_ui.lineEdit_11.setText("")
-                
-                # Se comprueba que la cédula contega 7 dígitos
-            elif len (str(Cedula)) ==7:
-                self.modelo.ModelTrabajadores.registrar_trabajador(Nombre, Apellido, Edad, Telefono, sexo, Cedula, Cargo, Area, Correo)
-                self.mensaje.mostrar_mensaje("Éxito!", "Se ha registrado exitosamente! Con su cedula va a marcar entrada y salida")
-                # Cuando se realiza el registro, se eliminan los datos de los labels
-                self.vista.entrar_ui.lineEdit.setText("")
-                self.vista.entrar_ui.lineEdit_2.setText("")
-                self.vista.entrar_ui.lineEdit_3.setText("")
-                self.vista.entrar_ui.lineEdit_4.setText("")
-                self.vista.entrar_ui.lineEdit_5.setText("")
-                self.vista.entrar_ui.lineEdit_11.setText("")
-                # Verifica que la cédula sea correcta
-            elif len (str(Cedula)) !=8:
-                self.mensaje.mostrar_mensaje("Error", "La cedula es incorrecta")
+Empleados.
+Una vez registrado las áreas y cargos de trabajo, podremos comenzar a registrar a los empleados, nos iremos al apartado Empleados donde podremos registrar, modificar, seleccionar, eliminar, buscar o exportar. En este apartado tenemos dos maneras de buscar una por el código de la fila en la tabla y el otro por fecha el cual mostrara todos los registros o datos que se hallan registrados ese día.
 
-    def RegistrarArea(self):
-        
-        nombre_area = self.vista.entrar_ui.area.text()
-        descripcion = self.vista.entrar_ui.texto.text()
-        
-        if len(nombre_area) == 0 or len(descripcion)== 0:
-            self.mensaje.mostrar_mensaje("Error", "Por favor Ingrese todos los datos")
-        else:
-            self.modelo.ModelArea_Cargo.RegistrarArea(nombre_area, descripcion)
-            self.mensaje.mostrar_mensaje("Éxito!", "Se ha registrado exitosamente!")
-            self.vista.entrar_ui.area.setText("")
-            self.vista.entrar_ui.texto.setText("")
+Marcar Asistencia.
+Si eres algún trabajador y quieres marcar tu entrada o salida laboral solo presiona el botón de marcar asistencia, coloca tu cedula y te registraras.
 
-
-    def RegistrarCargo(self):
-        nombre_cargo = self.vista.entrar_ui.cargo.text()
-        
-        if len(nombre_cargo) == 0:
-            self.mensaje.mostrar_mensaje("Error", "Por favor Ingrese el nombre del cargo")
-        else:
-            self.modelo.ModelArea_Cargo.RegistrarCargo(nombre_cargo)
-            self.mensaje.mostrar_mensaje("Éxito!", "Se ha registrado exitosamente!")
-            self.vista.entrar_ui.cargo.setText("")
-
-    def mostrarAreas(self):
-        resultado = self.modelo.ModelArea_Cargo.ObtenerAreas()
-        
-        i = len(resultado)
-        self.vista.entrar_ui.tableWidget_3.setRowCount(i)
-        tablerow = 0
-        for row in resultado: ##aqui se recorren los resultados de la consulta, cada row es un registro diferente
-            self.vista.entrar_ui.tableWidget_3.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0]))) #se asigna la row[0] (cedula) a la primera columna
-            self.vista.entrar_ui.tableWidget_3.setItem(tablerow,1,QtWidgets.QTableWidgetItem(row[1])) #se asigna la row[1] (entrada) a la segunda columna
-            self.vista.entrar_ui.tableWidget_3.setItem(tablerow,2,QtWidgets.QTableWidgetItem(row[2])) #se asigna la row[2] (salida) a la tercera columna
-            tablerow=tablerow+1 #se pasa a la siguiente fila de resultados 
-
-
-    def mostrarCargos(self):
-        resultado = self.modelo.ModelArea_Cargo.ObtenerCargos()
-        
-        i = len(resultado)
-        self.vista.entrar_ui.tableWidget_4.setRowCount(i)
-        tablerow = 0
-        for row in resultado: ##aqui se recorren los resultados de la consulta, cada row es un registro diferente
-            self.vista.entrar_ui.tableWidget_4.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0]))) #se asigna la row[0] (cedula) a la primera columna
-            self.vista.entrar_ui.tableWidget_4.setItem(tablerow,1,QtWidgets.QTableWidgetItem(row[1])) #se asigna la row[1] (entrada) a la segunda columna
-            tablerow=tablerow+1 #se pasa a la siguiente fila de resultados
-
-    def mostrarComboBox_3(self):
-        
-        resultados = self.modelo.ModelArea_Cargo.ObtenerArea()
-        self.vista.entrar_ui.comboBox_3.clear()
-        for resultado in resultados:
-            self.vista.entrar_ui.comboBox_3.addItem(resultado[0])
-
-    def mostrarComboBox_2(self):
-        resultados = self.modelo.ModelArea_Cargo.ObtenerCargo()
-        self.vista.entrar_ui.comboBox_2.clear()
-        for resultado in resultados:
-            self.vista.entrar_ui.comboBox_2.addItem(resultado[0])
-
-    def MostrarEmpleados(self):
-        pass
+Ver Asistencia.
+Para poder ver las asistencias laborales, iras al apartado de Ver Asistencia donde podrás realizar una búsqueda por fecha  y exportar esos datos.
+""")

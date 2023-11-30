@@ -16,25 +16,32 @@ class ControladorRegistrarUsuario:
         self.vista.PreguntasSeguridad_ui.btn_regresar.clicked.connect(self.Volver)
 
     def SiguienteVentana(self):
+        #Se almacena los datos de entrada en  las variables
         nombre = self.vista.RegistraUsuario_ui.lineEdit_1.text()
         apellido = self.vista.RegistraUsuario_ui.lineEdit_2.text()
         usuario = self.vista.RegistraUsuario_ui.lineEdit_3.text()
         clave = self.vista.RegistraUsuario_ui.lineEdit_4.text()
         confirmar_clave = self.vista.RegistraUsuario_ui.lineEdit_5.text()
-        
+        #Se validan si los campos estan vacios
         if len(nombre) == 0 or len(apellido) == 0 or len(usuario) == 0 or len(clave) == 0 or len(confirmar_clave) == 0:
             self.mensaje.mostrar_mensaje("Error","Hay campos que estan vacios")
         else:
-            resultado = self.modelo.ModelLogin.validar_usuario(usuario)
             
-            if resultado :
-                self.mensaje.mostrar_mensaje("Error", "El usuario ya existe")
-            else:
-                if clave != confirmar_clave:
-                    self.mensaje.mostrar_mensaje("Error", "Las contraseña no coinciden")
+            if nombre.isalpha() or apellido.isalpha():#El isalpha sirve para verificar que la cadena sea solo letras
+                #se verifica con la base de datos si hay algun usuario con el mismo nombre 
+                resultado = self.modelo.ModelLogin.validar_usuario(usuario)
+                
+                if resultado :
+                    self.mensaje.mostrar_mensaje("Error", "El usuario ya existe")
                 else:
-                    self.vista.mostrar_PreguntasSeguridad()
-                    self.vista.ocultar_RegistraUsuario()
+                    if clave != confirmar_clave:
+                        self.mensaje.mostrar_mensaje("Error", "Las contraseña no coinciden")
+                    else:
+                        self.vista.mostrar_PreguntasSeguridad()
+                        self.vista.ocultar_RegistraUsuario()
+            else:
+                self.mensaje.mostrar_mensaje("Error", "El nombre y apellido solo debe de contener letras.")
+            
 
 
     def Volver(self):

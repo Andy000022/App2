@@ -1,4 +1,6 @@
+from .ControladorMostrar_Mensaje import ControladorMostrar_Mensaje
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment
 
@@ -13,32 +15,54 @@ class ControladorRegistro:
     def __init__(self, vista, modelo):
         self.vista = vista
         self.modelo = modelo
+        self.mensaje = ControladorMostrar_Mensaje()
 
 
-    def Registros(self):
-        resultado_registros = self.modelo.ModelRegistro.cargar_registros()
+    def mostrarAsistencia(self):
+        resultado = self.modelo.ModelRegistro.obtener_asistencia()
         
-        i = len(resultado_registros)##numero de columnas obtenidas
-        self.vista.verreg.tableWidget.setRowCount(i)##configurar la cantidad de columnas en la tableWidget
-        tablerow = 0 ##primera fila
-        for row in resultado_registros: ##aqui se recorren los resultados de la consulta, cada row es un registro diferente
-            self.vista.verreg.tableWidget.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0]))) #se asigna la row[0] (cedula) a la primera columna
-            self.vista.verreg.tableWidget.setItem(tablerow,1,QtWidgets.QTableWidgetItem(row[1])) #se asigna la row[1] (entrada) a la segunda columna
-            self.vista.verreg.tableWidget.setItem(tablerow,2,QtWidgets.QTableWidgetItem(row[2])) #se asigna la row[2] (salida) a la tercera columna
-            tablerow=tablerow+1 #se pasa a la siguiente fila de resultados
+        i = len(resultado)
+        self.vista.entrar_ui.tableWidget.setRowCount(i)
+        tablerow = 0
+        for row in resultado: 
+            for j in range(4): # asumiendo que tienes 10 columnas
+                item = QtWidgets.QTableWidgetItem(str(row[j]))
+                item.setTextAlignment(Qt.AlignCenter) # centra el texto
+                self.vista.entrar_ui.tableWidget.setItem(tablerow, j, item)
+            tablerow += 1
 
+    def buscarporfecha(self):
+        fecha_desde =self.vista.entrar_ui.dateEdit.date().toPyDate()
+        fecha_hasta = self.vista.entrar_ui.dateEdit_2.date().toPyDate()
+        
+        resultado = self.modelo.ModelRegistro.buscarporfecha(fecha_desde, fecha_hasta)
+        if resultado:
+            self.vista.entrar_ui.tableWidget.setRowCount(0)
+            i = len(resultado)
+            self.vista.entrar_ui.tableWidget.setRowCount(i)
+            tablerow = 0
+            for row in resultado: 
+                for j in range(4): # asumiendo que tienes 10 columnas
+                    item = QtWidgets.QTableWidgetItem(str(row[j]))
+                    item.setTextAlignment(Qt.AlignCenter) # centra el texto
+                    self.vista.entrar_ui.tableWidget.setItem(tablerow, j, item)
+                tablerow += 1
+        else:
+            self.mensaje.mostrar_mensaje("Error", "No se encontro ningun registro")
 
-    def generar_reporte(self):
+    def generar_reporte_asistencia(self):
         formato, _ = QFileDialog.getSaveFileName(None, "Guardar archivo", "", "PDF files (*.pdf);;Excel files (*.xlsx)")
-        registros = self.modelo.ModelRegistro.cargar_registros()
+        registros = self.modelo.ModelRegistro.obtener_asistencia()
         
-        if formato.endswith('.pdf'):
-            self.generar_pdf(formato, registros)
-        elif formato.endswith('.xlsx'):
-            self.generar_excel(formato, registros)
+        if registros:
+            if formato.endswith('.pdf'):
+                self.generar_pdf3(formato, registros)
+            elif formato.endswith('.xlsx'):
+                self.generar_excel3(formato, registros)
+        else:
+            self.mensaje.mostrar_mensaje("Error", "No se encontraron registros")
 
-
-    def generar_pdf(self, ruta, registros):
+    def generar_pdf3(self, ruta, registros):
         printer = QPrinter(QPrinter.HighResolution)
         printer.setOutputFormat(QPrinter.PdfFormat)
         printer.setOutputFileName(ruta)
@@ -48,10 +72,10 @@ class ControladorRegistro:
 
         # Crear una tabla en el documento
         cursor = QTextCursor(doc)
-        table = cursor.insertTable(len(registros) + 1, 3)
+        table = cursor.insertTable(len(registros) + 1, 4)
 
         # Definir los títulos de las columnas
-        titulos = ["Cedula", "Hora_Entrada", "Hora_Salida"]
+        titulos = ["Cedula", "Fecha", "Hora_Entrada", "Hora_Salida"]
 
         # Agregar los títulos a la tabla
         for i, titulo in enumerate(titulos):
@@ -71,14 +95,14 @@ class ControladorRegistro:
 
 
 
-    def generar_excel(self, ruta, registros):
+    def generar_excel3(self, ruta, registros):
         # Crear un nuevo libro de trabajo
         libro = Workbook()
         # Obtener la hoja activa
         hoja = libro.active
 
         # Definir los títulos de las columnas
-        titulos = ["Cedula", "Fecha_Entrada", "Fecha_Salida"]
+        titulos = ["Cedula", "Fecha", "Hora_Entrada", "Hora_Salida"]
         # Agregar los títulos a la hoja
         hoja.append(titulos)
 

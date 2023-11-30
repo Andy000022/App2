@@ -21,16 +21,16 @@ class Ui_Form(object):
         icon.addPixmap(QtGui.QPixmap(":/icon/icon/logo2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
         self.widget = QtWidgets.QWidget(Form)
-        self.widget.setGeometry(QtCore.QRect(-40, -10, 541, 491))
-        self.widget.setStyleSheet("QPushButton#pushButton, #btn_registrar_usuario,#btn_asistencia{\n"
+        self.widget.setGeometry(QtCore.QRect(-50, -10, 541, 491))
+        self.widget.setStyleSheet("QPushButton#pushButton, #btn_registrar_usuario,#btn_asistencia,#btn_ayuda{\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0  #0f2dc2, stop:1 #5c687b);\n"
 "    color:rgba(255, 255, 255, 210);\n"
 "    border-radius:5px;\n"
 "}\n"
-"QPushButton#pushButton:hover, #btn_registrar_usuario:hover, #btn_asistencia:hover{\n"
+"QPushButton#pushButton:hover, #btn_registrar_usuario:hover, #btn_asistencia:hover,#btn_ayuda:hover{\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));\n"
 "}\n"
-"QPushButton#pushButton:pressed, #btn_registrar_usuario:pressed, #btn_asistencia:pressed{\n"
+"QPushButton#pushButton:pressed, #btn_registrar_usuario:pressed, #btn_asistencia:pressed,#btn_ayuda:pressed{\n"
 "    padding-left:5px;\n"
 "    padding-top:5px;\n"
 "    background-color:#c4343c;\n"
@@ -189,6 +189,14 @@ class Ui_Form(object):
         self.label_1.setPixmap(QtGui.QPixmap(".\\Views\\../Resources/img/cabecera.png"))
         self.label_1.setScaledContents(True)
         self.label_1.setObjectName("label_1")
+        self.btn_ayuda = QtWidgets.QPushButton(self.widget)
+        self.btn_ayuda.setGeometry(QtCore.QRect(480, 420, 30, 30))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.btn_ayuda.setFont(font)
+        self.btn_ayuda.setStyleSheet("")
+        self.btn_ayuda.setObjectName("btn_ayuda")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -209,4 +217,5 @@ class Ui_Form(object):
         self.label_7.setText(_translate("Form", "¿Olvidastes tu"))
         self.btn_recuperar_clave.setText(_translate("Form", "Contraseña ?"))
         self.btn_asistencia.setText(_translate("Form", "Marcar Asistencia"))
+        self.btn_ayuda.setText(_translate("Form", "?"))
 import Resources.resource_rc

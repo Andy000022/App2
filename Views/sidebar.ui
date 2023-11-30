@@ -135,7 +135,8 @@
     #user-btn{
         border:none;
     }
-</string>
+	#usuario_nombre{
+		color:#fff;}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -251,6 +252,22 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="usuario_nombre">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="user_btn">
@@ -679,7 +696,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Ingrese el id:</string>
+                       <string>Ingrese el codigo:</string>
                       </property>
                      </widget>
                     </item>
@@ -689,7 +706,7 @@
                     <item>
                      <widget class="QPushButton" name="btn_buscar_1">
                       <property name="text">
-                       <string>Buscar</string>
+                       <string>Seleccionar</string>
                       </property>
                      </widget>
                     </item>
@@ -714,7 +731,7 @@
                     <row/>
                     <column>
                      <property name="text">
-                      <string>Id</string>
+                      <string>Codigo</string>
                      </property>
                      <property name="font">
                       <font>
@@ -898,7 +915,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Ingrese el id:</string>
+                       <string>Ingrese el codigo:</string>
                       </property>
                      </widget>
                     </item>
@@ -908,7 +925,7 @@
                     <item>
                      <widget class="QPushButton" name="btn_buscar_2">
                       <property name="text">
-                       <string>Buscar</string>
+                       <string>Seleccionar</string>
                       </property>
                      </widget>
                     </item>
@@ -933,7 +950,7 @@
                     <row/>
                     <column>
                      <property name="text">
-                      <string>Id</string>
+                      <string>Codigo</string>
                      </property>
                      <property name="font">
                       <font>
@@ -1068,6 +1085,9 @@
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="placeholderText">
+                         <string/>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -1138,6 +1158,9 @@
                           <width>150</width>
                           <height>16777215</height>
                          </size>
+                        </property>
+                        <property name="placeholderText">
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -1210,6 +1233,9 @@
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="placeholderText">
+                         <string/>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -1281,6 +1307,9 @@
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="placeholderText">
+                         <string/>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -1351,6 +1380,9 @@
                           <width>150</width>
                           <height>16777215</height>
                          </size>
+                        </property>
+                        <property name="placeholderText">
+                         <string/>
                         </property>
                         <item>
                          <property name="text">
@@ -1437,6 +1469,9 @@
                           <width>150</width>
                           <height>16777215</height>
                          </size>
+                        </property>
+                        <property name="placeholderText">
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -1658,6 +1693,9 @@
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="placeholderText">
+                         <string/>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -1732,25 +1770,6 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="btn_limpiar">
-                        <property name="minimumSize">
-                         <size>
-                          <width>80</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>80</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Limpiar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
                        <widget class="QPushButton" name="btn_eliminar_3">
                         <property name="minimumSize">
                          <size>
@@ -1817,7 +1836,7 @@
                          </size>
                         </property>
                         <property name="text">
-                         <string>Ingrese la cédula:</string>
+                         <string>Ingrese el Codigo:</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1837,6 +1856,13 @@
                           <width>80</width>
                           <height>16777215</height>
                          </size>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="btn_selec">
+                        <property name="text">
+                         <string>Seleccionar</string>
                         </property>
                        </widget>
                       </item>
@@ -1998,7 +2024,7 @@
                    <widget class="QTableWidget" name="tableWidget_2">
                     <column>
                      <property name="text">
-                      <string>Id</string>
+                      <string>Codigo</string>
                      </property>
                      <property name="font">
                       <font>
@@ -2009,6 +2035,16 @@
                     <column>
                      <property name="text">
                       <string>Nombre</string>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Apellido</string>
                      </property>
                      <property name="font">
                       <font>
@@ -2121,6 +2157,19 @@
            <item>
             <widget class="QWidget" name="widget_6" native="true">
              <layout class="QGridLayout" name="gridLayout_6">
+              <item row="1" column="0">
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>178</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item row="0" column="0">
                <layout class="QVBoxLayout" name="verticalLayout_21">
                 <item>
@@ -2234,7 +2283,11 @@
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="lineEdit_9"/>
+                           <widget class="QLineEdit" name="lineEdit_9">
+                            <property name="echoMode">
+                             <enum>QLineEdit::Password</enum>
+                            </property>
+                           </widget>
                           </item>
                          </layout>
                         </item>
@@ -2278,7 +2331,11 @@
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="lineEdit_10"/>
+                           <widget class="QLineEdit" name="lineEdit_10">
+                            <property name="echoMode">
+                             <enum>QLineEdit::Password</enum>
+                            </property>
+                           </widget>
                           </item>
                          </layout>
                         </item>
@@ -2315,19 +2372,6 @@
                  </layout>
                 </item>
                </layout>
-              </item>
-              <item row="1" column="0">
-               <spacer name="verticalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>178</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </widget>
@@ -2565,6 +2609,13 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="btn_ayuda_2">
+         <property name="text">
+          <string>  Ayuda</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="exit_btn_2">
          <property name="text">
           <string>Salir</string>
@@ -2748,6 +2799,22 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="btn_ayuda_1">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#788596;</string>
+         </property>
+         <property name="text">
+          <string>?</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="exit_btn_1">
          <property name="text">
           <string/>
@@ -2781,12 +2848,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>187</x>
-     <y>119</y>
+     <x>180</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>51</x>
-     <y>306</y>
+     <x>41</x>
+     <y>346</y>
     </hint>
    </hints>
   </connection>
@@ -2797,8 +2864,8 @@
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>187</x>
-     <y>119</y>
+     <x>180</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
      <x>141</x>
@@ -2813,12 +2880,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>169</y>
+     <x>37</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
-     <x>127</x>
-     <y>155</y>
+     <x>153</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -2829,12 +2896,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>225</y>
+     <x>40</x>
+     <y>192</y>
     </hint>
     <hint type="destinationlabel">
-     <x>160</x>
-     <y>203</y>
+     <x>153</x>
+     <y>146</y>
     </hint>
    </hints>
   </connection>
@@ -2845,12 +2912,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>27</x>
-     <y>253</y>
+     <x>28</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>154</x>
-     <y>227</y>
+     <x>153</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>
@@ -2866,7 +2933,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
-     <y>251</y>
+     <y>210</y>
     </hint>
    </hints>
   </connection>
@@ -2877,12 +2944,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>155</y>
+     <x>153</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>45</x>
-     <y>169</y>
+     <x>40</x>
+     <y>142</y>
     </hint>
    </hints>
   </connection>
@@ -2893,12 +2960,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>203</y>
+     <x>153</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
-     <x>21</x>
-     <y>225</y>
+     <x>22</x>
+     <y>192</y>
     </hint>
    </hints>
   </connection>
@@ -2909,12 +2976,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>227</y>
+     <x>153</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
-     <x>37</x>
-     <y>253</y>
+     <x>38</x>
+     <y>242</y>
     </hint>
    </hints>
   </connection>
@@ -2925,8 +2992,8 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>251</y>
+     <x>153</x>
+     <y>210</y>
     </hint>
     <hint type="destinationlabel">
      <x>36</x>
@@ -2941,8 +3008,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>476</y>
+     <x>154</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>219</x>
@@ -2958,11 +3025,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>23</x>
-     <y>473</y>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>29</x>
      <y>497</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_ayuda_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>btn_ayuda_1</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>521</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>496</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_ayuda_1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>btn_ayuda_2</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>479</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>527</y>
     </hint>
    </hints>
   </connection>

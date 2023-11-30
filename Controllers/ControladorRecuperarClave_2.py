@@ -15,7 +15,7 @@ class ControladorRecuperarClave_2:
         if len(clave) == 0 or len(confirmar_clave) == 0:
             self.mensaje.mostrar_mensaje("Error", "Las contraseña no coinciden")
         else:
-            resultado = self.modelo.ModelLogin.ActualizarClave(usuario, clave)
+            self.modelo.ModelLogin.ActualizarClave(usuario, clave)
             self.mensaje.mostrar_mensaje("Exito", "Has modificado tu contraseña, ya puedes iniciar sesión")
             self.vista.recuperarClave_ui.lineEdit_1.setText("")
             self.vista.recuperarClave_ui.lineEdit_2.setText("")
